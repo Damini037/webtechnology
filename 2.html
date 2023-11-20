@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electronic Products</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .products-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .product {
+      width: calc(33.33% - 20px);
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: scale(1.02);
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-bottom: 1px solid #ddd;
+    }
+    .product-info {
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Our Electronic Products Page</h1>
+
+  <div class="products-container">
+
+    <div class="product">
+      <img src="laptop.jpg" alt="Laptop Image">
+      <div class="product-info">
+        <h2>Laptop</h2>
+        <p>Description: The XYZ Laptop is a powerful and lightweight device, perfect for both work and entertainment. With a high-resolution display, fast processor, and long battery life, it's the ideal companion for on-the-go computing.</p>
+        <p>Price: $999.99</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="smartphone.jpg" alt="Smartphone Image">
+      <div class="product-info">
+        <h2>Smartphone</h2>
+        <p>Description: Introducing the ABC Smartphone with a stunning AMOLED display, advanced camera system, and powerful processing capabilities. Stay connected and capture memories in high definition with this state-of-the-art mobile device.</p>
+        <p>Price: $799.99</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="earbuds.jpg" alt="Wireless Earbuds Image">
+      <div class="product-info">
+        <h2>Wireless Earbuds</h2>
+        <p>Description: Immerse yourself in crystal-clear audio with our Wireless Earbuds. These sleek and comfortable earbuds provide an enhanced listening experience with noise cancellation technology, making them perfect for music lovers on the move.</p>
+        <p>Price: $129.99</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
