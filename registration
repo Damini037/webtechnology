@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        /* ... (styles remain unchanged) ... */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #registration-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 5px;
+            font-size: 0.8em;
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        /* Styles for the pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Additional styles for username and password fields */
+        #form input[type="text"],
+        #form input[type="password"],
+        #form input[type="tel"],
+        #form input[type="email"],
+        #form select {
+            margin-bottom: 15px;
+        }
+
+        #form select {
+            margin-top: 5px;
+        }
+
+        #form button {
+            margin-top: 15px;
+        }
+
+        #form input[type="text"],
+        #form input[type="password"],
+        #form input[type="tel"],
+        #form input[type="email"],
+        #form select {
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        #form input[type="text"]:focus,
+        #form input[type="password"]:focus,
+        #form input[type="tel"]:focus,
+        #form input[type="email"]:focus,
+        #form select:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        #form button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="registration-form">
+        <h2>Registration</h2>
+        <form id="form">
+            <input type="text" id="fullName" placeholder="Full Name">
+            <div class="error-message" id="fullNameError"></div>
+
+            <select id="className" placeholder="Class">
+                <option value="" disabled selected>Select Class</option>
+                <option value="SY">SY</option>
+                <option value="TY">TY</option>
+                <option value="BE">BE</option>
+            </select>
+            <div class="error-message" id="classError"></div>
+
+            <select id="division" placeholder="Division">
+                <option value="" disabled selected>Select Division</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+            <div class="error-message" id="divisionError"></div>
+
+            <select id="department" placeholder="Department">
+                <option value="" disabled selected>Select Department</option>
+                <option value="CSE">CSE</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
+                <option value="ENTC">ENTC</option>
+                <option value="CHEM">CHEM</option>
+            </select>
+            <div class="error-message" id="departmentError"></div>
+
+            <input type="tel" id="phoneNumber" placeholder="Phone Number">
+            <div class="error-message" id="phoneNumberError"></div>
+
+            <input type="email" id="email" placeholder="Email ID">
+            <div class="error-message" id="emailError"></div>
+
+            <input type="text" id="username" placeholder="Username">
+            <div class="error-message" id="usernameError"></div>
+
+            <input type="password" id="password" placeholder="Password">
+            <div class="error-message" id="passwordError"></div>
+
+            <button type="button" onclick="validateForm()">Register</button>
+            <a href="Untitled-1.html">Login</a>
+        </form>
+    </div>
+
+    <!-- Popup content -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <p>Data Registered Successfully!</p>
+        <button onclick="closePopupAndResetForm()">OK</button>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(element => element.innerHTML = '');
+
+            // Get form values
+            var fullName = document.getElementById('fullName').value.trim();
+            var className = document.getElementById('className').value.trim();
+            var division = document.getElementById('division').value.trim();
+            var department = document.getElementById('department').value.trim();
+            var phoneNumber = document.getElementById('phoneNumber').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value.trim();
+
+            // Validate each field
+            if (fullName === '') {
+                document.getElementById('fullNameError').innerHTML = 'Full Name is required';
+            }
+
+            if (className === '') {
+                document.getElementById('classError').innerHTML = 'Class is required';
+            }
+
+            if (division === '') {
+                document.getElementById('divisionError').innerHTML = 'Division is required';
+            }
+
+            if (department === '') {
+                document.getElementById('departmentError').innerHTML = 'Department is required';
+            }
+
+            if (phoneNumber === '') {
+                document.getElementById('phoneNumberError').innerHTML = 'Phone Number is required';
+            } else if (!isValidPhoneNumber(phoneNumber)) {
+                document.getElementById('phoneNumberError').innerHTML = 'Invalid Phone Number';
+            }
+
+            if (email === '') {
+                document.getElementById('emailError').innerHTML = 'Email ID is required';
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').innerHTML = 'Invalid Email ID';
+            }
+
+            if (username === '') {
+                document.getElementById('usernameError').innerHTML = 'Username is required';
+            }
+
+            if (password === '') {
+                document.getElementById('passwordError').innerHTML = 'Password is required';
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').innerHTML = 'Password must be at least 6 characters';
+            }
+
+            // If all fields are valid, show the popup
+            if (fullName !== '' && className !== '' && division !== '' && department !== '' && phoneNumber !== '' && email !== '' &&
+                isValidPhoneNumber(phoneNumber) && isValidEmail(email) && username !== '' && password !== '' && password.length >= 6) {
+                showPopup();
+            }
+        }
+
+        function isValidPhoneNumber(phoneNumber) {
+            // Simple validation for a 10-digit phone number
+            return /^\d{10}$/.test(phoneNumber);
+        }
+
+        function isValidEmail(email) {
+            // Simple validation for email format
+            return /\S+@\S+\.\S+/.test(email);
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopupAndResetForm() {
+            closePopup();
+
+            // Reset the form
+            document.getElementById('form').reset();
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
