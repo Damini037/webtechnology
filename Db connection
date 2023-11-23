@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data</title>
+</head>
+<body>
+    <h2>Add Data</h2>
+    <form action="add_data.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <br>
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <br>
+        <label for="class">Class:</label>
+        <input type="text" name="class" required>
+        <br>
+        <label for="division">Division:</label>
+        <input type="text" name="division" required>
+        <br>
+        <input type="submit" value="Add Data">
+    </form>
+</body>
+</html>
+<?php
+include 'db_config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST["name"];
+    $phone = $_POST["phone"];
+    $email = $_POST["email"];
+    $class = $_POST["class"];
+    $division = $_POST["division"];
+
+    // Insert data into the table
+    $sql = "INSERT INTO today (name, phone, email, class, division) 
+            VALUES ('$name', '$phone', '$email', '$class', '$division')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Data added successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+<?php
+// Database configuration
+$db_host = 'localhost';
+$db_user = 'root';
+$db_password = '';
+$db_name = 'today';
+
+// Create a database connection
+$conn = new mysqli($db_host, $db_user, $db_password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
