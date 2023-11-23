@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>Matrix Add</title>
+    </head>
+    <body>
+        <form method="post" action="mat.php">
+            <label>Enter The number of rows    </label>
+            <input type="text" name="row">
+            <br>
+            <label>Enter The number of column    </label>
+            <input type="text" name="col">
+            <input type="submit" value="Enter">
+        </form>
+    </body>
+</html>
+
+<?php
+$row=$_POST['row'];
+$col=$_POST['col'];
+?>
+<html>
+    <body>
+         <form method="POST" action="add.php">
+            <lable>Enter First Matrix</lable><br>
+            <table>
+            <?php
+                for ($i=0 ; $i < $row ; $i++){
+            ?>
+                <tr>
+                    <?php
+                    for($j=0 ; $j < $col ; $j++){
+                    ?>
+                    <td>
+                        <?php
+                        echo '<input type="text" name="a'.$i.$j.'">';
+                        ?>
+                    </td>
+                    <?php
+                    }
+                    ?>
+                </tr>
+                <?php
+                    }
+                    ?>
+            </table>
+            <lable>Enter Second Matrix</lable><br>
+            <table>
+            <?php
+                for ($i=0 ; $i < $row ; $i++){
+            ?>
+                <tr>
+                    <?php
+                    for($j=0 ; $j < $col ; $j++){
+                    ?>
+                    <td>
+                        <?php
+                    echo '<input type="text" name="b'.$i.$j.'">';
+                    ?>
+                    </td>
+                    <?php
+                        }
+                    ?>
+                </tr>
+                <?php
+                    }
+                    
+                ?>
+            </table>
+           <input type="hidden" name="arow" value="<?php echo $row ?>">
+           <input type="hidden" name="acol" value="<?php echo $col ?>">
+         <input type="submit" value="addition">         
+        </form>
+    </body>
+</html>
+<?php
+$row=$_POST['arow'];
+$col=$_POST['acol'];
+$a=array(array());
+$b=array(array());
+$c=array();
+for ($i=0 ; $i < $row ; $i++){
+    for ($j=0 ; $j < $col ; $j++){
+        $a[$i][$j]=$_POST['a'.$i.$j];
+        $b[$i][$j]=$_POST['b'.$i.$j];
+        $c[$i][$j]=$a[$i][$j]+$b[$i][$j];
+    }
+}
+?>
+<html>
+<head>
+<style>
+	table, tr,td{
+	margin : 0 auto;
+	border : 1px solid black;
+	border-style: dotted;
+	font-size:50px;
+	padding:30px;
+	}
+	tr,td{
+	border-style: outset;
+	padding: 50px;
+	}
+	</style>
+	</head>
+	<body>
+		<table>
+            <?php
+                for ($i=0 ; $i < $row ; $i++){
+            ?>
+                <tr>
+                    <?php
+                    for($j=0 ; $j < $col ; $j++){
+                    ?>
+                    <td>
+                        <?php
+                        echo $c[$i][$j];
+                        ?>
+                    </td>
+                    <?php
+                    }
+                    ?>
+                </tr>
+                <?php
+                    }
+                    ?>
+		</table>
+	</body>
+</html>
