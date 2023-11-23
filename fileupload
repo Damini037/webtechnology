@@ -1,0 +1,65 @@
+<!---9.1-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h2>File Upload</h2>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <label for="file">Select files:</label>
+        <input type="file" name="files[]" id="file" multiple required>
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
+
+
+<!----9.1---->
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if files were uploaded without errors
+    if (isset($_FILES["files"]) && is_array($_FILES["files"]["name"])) {
+        $targetDir = "uploads/";
+        
+        // Create the "uploads" directory if it doesn't exist
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        $uploadedFiles = [];
+
+        // Loop through each file
+        for ($i = 0; $i < count($_FILES["files"]["name"]); $i++) {
+            $fileName = basename($_FILES["files"]["name"][$i]);
+            $targetFile = $targetDir . $fileName;
+
+            // Check if the file already exists
+            if (file_exists($targetFile)) {
+                echo "File '$fileName' already exists.<br>";
+            } else {
+                // Move the uploaded file to the specified directory
+                if (move_uploaded_file($_FILES["files"]["tmp_name"][$i], $targetFile)) {
+                    $uploadedFiles[] = $fileName;
+                } else {
+                    echo "Error uploading file '$fileName'.<br>";
+                }
+            }
+        }
+
+        // Display the list of uploaded files
+        if (!empty($uploadedFiles)) {
+            echo "Files uploaded successfully:<br>";
+            foreach ($uploadedFiles as $file) {
+                echo "$file<br>";
+            }
+        }
+    } else {
+        echo "No files were uploaded.";
+    }
+}
+?>
+
