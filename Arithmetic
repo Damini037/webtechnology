@@ -1,0 +1,110 @@
+<!----Arithmetic1---->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <form action="login.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+<!-----Arithmetic2filename=login.php----><?php
+// Start the session
+session_start();
+
+// Dummy user credentials (replace with your own)
+$validUsers = [
+    'Damini' => '1234',
+    'user2' => 'password2',
+];
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // Check if the provided credentials are valid
+    if (isset($validUsers[$username]) && $validUsers[$username] === $password) {
+        // Set session variables
+        $_SESSION["username"] = $username;
+
+        // Redirect to the home page or another protected page
+        header("Location: home.php");
+        exit();
+    } else {
+        echo "Invalid username or password";
+    }
+}
+?>
+<!-----Arithmetic3filename=home.php----><?php<?php
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION["username"])) {
+    // Redirect to the login page if not logged in
+    header("Location: index.html");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome, <?php echo $_SESSION["username"]; ?>!</h1>
+
+    <form action="calculate.php" method="post">
+        <label for="num1">Number 1:</label>
+        <input type="text" name="num1" required>
+        <br>
+        <label for="num2">Number 2:</label>
+        <input type="text" name="num2" required>
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <br>
+
+    <a href="logout.php">Logout</a>
+</body>
+</html>
+<?php
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION["username"])) {
+    // Redirect to the login page if not logged in
+    header("Location: index.html");
+    exit();
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $num1 = $_POST["num1"];
+    $num2 = $_POST["num2"];
+
+    // Perform arithmetic operations
+    $sum = $num1 + $num2;
+    $difference = $num1 - $num2;
+    $product = $num1 * $num2;
+    $quotient = $num1 / $num2;
+
+    // Display the results
+    echo "Sum: $sum <br>";
+    echo "Difference: $difference <br>";
+    echo "Product: $product <br>";
+    echo "Quotient: $quotient <br>";
+}
+?>
