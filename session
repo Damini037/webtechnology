@@ -1,0 +1,72 @@
+<!-----session1---->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page for arithmetic</title>
+    
+</head>
+<body>
+    <form action="login1.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+<!--------session2---->
+<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $validUser = true;
+    if ($validUser) {
+        $_SESSION["username"] = $_POST["username"];
+        header("Location: home.php");
+        exit();
+    } else {
+        echo "Invalid username or password";
+    }
+}
+?>
+<!-------session3----->
+<?php
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION["username"])) {
+    // Redirect to the login page if not logged in
+    header("Location: login.html");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome, <?php echo $_SESSION["username"]; ?>!</h1>
+    <a href="logout.php">Logout</a>
+</body>
+</html>
+<?php
+// Start the session
+session_start();
+
+// Unset all session variables
+$_SESSION = array();
+
+// Destroy the session
+session_destroy();
+
+// Redirect to the login page
+header("Location: login.html");
+exit();
+?>
+
