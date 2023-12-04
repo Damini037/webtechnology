@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <form action="your_php_script.php" method="post" enctype="multipart/form-data">
+        <label for="fileToUpload">Choose a JPG file:</label>
+        <input type="file" name="fileToUpload" id="fileToUpload" accept=".jpg">
+        <br>
+        <input type="submit" value="Upload File">
+    </form>
+</body>
+</html>
+<?php  
+
+$tp = "D:/rank/";    // target folder name path
+
+ 
+
+$tp = $tp.basename($_FILES['fileToUpload']['name']);   
+
+  
+
+$name=$_FILES['fileToUpload']['name'];
+
+
+
+
+
+	
+
+	$fe=end(explode('.',$name));
+
+
+
+	$ex=array("jpg");
+
+
+
+	if(in_array($fe,$ex)=== true)
+
+	{
+
+
+
+	  	if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $tp)) 
+
+	  	{  
+
+    			echo "File uploaded successfully!";  
+
+	  	}
+
+ 	  	else
+
+	 	{  
+
+    		echo "Sorry, file not uploaded, please try again!";  
+
+	 	}
+
+	}
+
+	else
+
+	{
+
+		echo"Check ext";
+
+	}
+
+
+
+?>  
